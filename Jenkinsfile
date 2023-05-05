@@ -9,10 +9,17 @@ pipeline {
     }
 
     stage('test') {
-      steps {
+      parallel{
+        steps {
         echo 'test maven app'
         sh 'mvn clean test'
+         }
+        Steps {
+        echo 'parallel step 1'
+        sleep 2
+        }
       }
+      
     }
 
     stage('package') {
