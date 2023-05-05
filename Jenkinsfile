@@ -10,16 +10,18 @@ pipeline {
 
     stage('test') {
       parallel{
-        steps {
-        echo 'test maven app'
-        sh 'mvn clean test'
-         }
-        Steps {
-        echo 'parallel step 1'
-        sleep 2
+        stage (path 1) {
+          steps {
+              echo 'test maven app'
+              sh 'mvn clean test'
+                }
         }
-      }
-      
+        stage (path 2) {
+          steps {
+            echo 'parallel step 1'
+            sleep 2
+            }
+         }
     }
 
     stage('package') {
