@@ -25,7 +25,13 @@ pipeline {
         stage ('path 3') {
           steps {
             echo 'parallel step 3'
-            sleep 2
+            sleep 3
+            }
+         }
+        stage ('path 4') {
+          steps {
+            echo 'parallel step 4'
+            sleep 4
             }
          }
     }
