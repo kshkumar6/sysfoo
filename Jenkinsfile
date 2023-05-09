@@ -31,20 +31,22 @@ pipeline {
       when {
          branch 'master'
       }
-      agent {
-        docker {
-          image 'maven:3.6.3-jdk-11-slim'
-        }
-
+      parallel {
+        stage ('create jar file') {
+          agent {
+            docker {
+              image 'maven:3.6.3-jdk-11-slim'
+            }
       }
       steps {
         echo 'package maven app'
         sh 'mvn package -DskipTests'
         archiveArtifacts '**/*.war'
       }
+        }
+      }
     }
-
-    stage('Docker BnP') {
+    stage('OCI Image BnP') {
       when {
          branch 'master'
       }
@@ -61,7 +63,6 @@ pipeline {
 
       }
     }
-
   }
   tools {
     maven 'maven 3.6.3'
